@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>EdgeMesh Hybrid Copilot — Architecture &amp; Cover</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 36px;
+    background: radial-gradient(circle at 14% 8%, #102a45 0%, #0b0f17 55%, #070a10 100%);
+    color: #f1f5f9;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  .canvas {
+    max-width: 1320px;
+    margin: 0 auto;
+    border: 1px solid #263244;
+    border-radius: 18px;
+    padding: 34px;
+    background: linear-gradient(160deg, rgba(17,24,39,0.96), rgba(11,15,23,0.98));
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #263244;
+  }
+  .tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.14);
+    border: 1px solid rgba(52, 211, 153, 0.4);
+  }
+  h1 {
+    margin: 12px 0 6px;
+    font-size: 38px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .subtitle {
+    margin: 0;
+    font-size: 17px;
+    color: #94a3b8;
+    max-width: 780px;
+  }
+  .meta-box {
+    text-align: right;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    color: #94a3b8;
+    background: #0d131d;
+    border: 1px solid #263244;
+    padding: 14px 18px;
+    border-radius: 12px;
+  }
+  .meta-box strong {
+    display: block;
+    color: #60a5fa;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .flow {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 42px 1fr 42px 1fr;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .stage {
+    background: #101723;
+    border: 1px solid #283548;
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .stage.local { border-color: rgba(52, 211, 153, 0.55); }
+  .stage.cloud { border-color: rgba(96, 165, 250, 0.55); }
+  .stage.guard { border-color: rgba(251, 191, 36, 0.55); }
+  .kicker {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+  }
+  .stage h2 {
+    margin: 6px 0 10px;
+    font-size: 20px;
+  }
+  .stage ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .arrow {
+    display: grid;
+    place-items: center;
+    font-family: Consolas, monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: #60a5fa;
+  }
+  .modes {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .mode-card {
+    background: #0d131d;
+    border: 1px solid #243042;
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .mode-pill {
+    display: inline-block;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .m-local { background: rgba(52,211,153,0.16); color: #34d399; }
+  .m-prefer { background: rgba(251,191,36,0.16); color: #fbbf24; }
+  .m-cloud { background: rgba(96,165,250,0.16); color: #60a5fa; }
+  .mode-card h3 { margin: 0 0 8px; font-size: 17px; }
+  .mode-card p { margin: 0; font-size: 13.5px; color: #cbd5e1; line-height: 1.5; }
+  .footer-proof {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Consolas, monospace;
+    font-size: 13.5px;
+    color: #d1fae5;
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="header">
+      <div>
+        <span class="tag">#BuildHybridAI 2026 · Firebase AI Logic + Gemini Nano</span>
+        <h1>EdgeMesh Hybrid Copilot</h1>
+        <p class="subtitle">
+          Deterministic Pre-Egress PII Firewall, Luhn Card Validator &amp; Complexity Router
+          for Privacy-First Hybrid AI Execution
+        </p>
+      </div>
+      <div class="meta-box">
+        <strong>SDK: firebase/ai (v13.4.0)</strong>
+        InferenceMode + InferenceSource<br />
+        Cloud Model: gemini-2.5-flash-lite<br />
+        Edge Model: Chrome Built-in Gemini Nano
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="stage guard">
+        <span class="kicker">Layer 1 · Browser RAM Only</span>
+        <h2>Deterministic PII &amp; Secret Gate</h2>
+        <ul>
+          <li>Scans API keys (<code>sk-</code>, <code>AIza</code>, <code>ghp_</code>, <code>xoxb-</code>)</li>
+          <li>Luhn checksum PAN validator (rejects false-positive numeric IDs)</li>
+          <li>Detects SSNs, Medical Record Numbers (<code>MRN-*</code>), Emails &amp; Phones</li>
+          <li>Emits <code>sanitizedPrompt</code> before any network touch</li>
+        </ul>
+      </div>
+      <div class="arrow">=&gt;</div>
+      <div class="stage local">
+        <span class="kicker">Layer 2 · Policy Engine</span>
+        <h2>Hybrid Complexity &amp; Air-Gap Router</h2>
+        <ul>
+          <li>Computes token budget &amp; complexity score (0–100)</li>
+          <li>Offline + Missing Nano =&gt; Fail-Closed Block (0 bytes egress)</li>
+          <li>Low complexity =&gt; <code>PREFER_ON_DEVICE</code> ($0.00 cost)</li>
+          <li>PII without redaction consent =&gt; locked <code>ONLY_ON_DEVICE</code></li>
+        </ul>
+      </div>
+      <div class="arrow">=&gt;</div>
+      <div class="stage cloud">
+        <span class="kicker">Layer 3 · Dual Execution</span>
+        <h2>Firebase AI Logic Dispatch</h2>
+        <ul>
+          <li>Calls <code>getGenerativeModel(ai, HybridParams)</code></li>
+          <li>User-gated <code>model.initializeDeviceModel()</code> warm-up</li>
+          <li>Reads <code>response.inferenceSource</code> (<code>on_device</code> / <code>in_cloud</code>)</li>
+          <li>Tracks USD saved, latency &amp; cryptographic zero-leak ledger</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modes">
+      <div class="mode-card">
+        <span class="mode-pill m-local">InferenceMode.ONLY_ON_DEVICE</span>
+        <h3>Zero-Egress Private Vault</h3>
+        <p>Enforced on Clinical MRN/SSN prompts, Strict Privacy Lock, or Offline mode. Fails closed if Gemini Nano weights are unavailable locally.</p>
+      </div>
+      <div class="mode-card">
+        <span class="mode-pill m-prefer">InferenceMode.PREFER_ON_DEVICE</span>
+        <h3>Zero-Cost Edge Triage</h3>
+        <p>Handles routine engineering and ward summaries locally on Chrome Gemini Nano ($0.00 token spend) with seamless redacted cloud fallback when unavailable.</p>
+      </div>
+      <div class="mode-card">
+        <span class="mode-pill m-cloud">InferenceMode.ONLY_IN_CLOUD</span>
+        <h3>Scrubbed Deep Reasoning</h3>
+        <p>Escalates high-complexity architecture/SQL root-cause analysis to <code>gemini-2.5-flash-lite</code> strictly after redacting all secret tokens to <code>[REDACTED_*]</code>.</p>
+      </div>
+    </div>
+
+    <div class="footer-proof">
+      <span>AUDIT VERIFIED: 300 Adversarial Multi-Secret Cases · 0 Raw PII Leaks · 0 Offline Violations</span>
+      <span>Node Unit Suite + TypeScript Strict + Standalone docs/index.html</span>
+    </div>
+  </div>
+</body>
+</html>

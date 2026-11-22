@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>EdgeMesh Hybrid Copilot — Privacy-First On-Device + Firebase AI Logic</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./src/styles.css" />
+	</head>
+	<body>
+		<div class="app-shell">
+			<header class="topbar">
+				<div class="brand-group">
+					<div class="brand-mark" aria-hidden="true">EM</div>
+					<div>
+						<h1>EdgeMesh Hybrid Copilot</h1>
+						<p class="subtitle">
+							Deterministic PII Guard &amp; Complexity Router for Firebase AI Logic
+							(<code>ONLY_ON_DEVICE</code> / <code>PREFER_ON_DEVICE</code> /
+							<code>ONLY_IN_CLOUD</code>)
+						</p>
+					</div>
+				</div>
+				<div class="header-badges">
+					<span id="runtime-channel-badge" class="pill pill-info"
+						>SDK Ready · Sandbox Mode</span
+					>
+					<span id="probe-status-badge" class="pill pill-muted"
+						>Nano Probe: Checking...</span
+					>
+				</div>
+			</header>
+
+			<main class="workspace-grid">
+				<section class="panel control-panel" aria-label="Hybrid Inference Controls">
+					<div class="panel-header">
+						<h2>1. Scenario Presets &amp; Guardrails</h2>
+						<span class="badge-tag">#BuildHybridAI 2026</span>
+					</div>
+
+					<div class="preset-grid" role="group" aria-label="Quick routing scenarios">
+						<button
+							type="button"
+							class="btn btn-preset is-active"
+							data-preset="clinical-pii"
+						>
+							<span class="preset-title">Clinical PII Note</span>
+							<span class="preset-meta">MRN + SSN + Card -> ONLY_ON_DEVICE</span>
+						</button>
+						<button type="button" class="btn btn-preset" data-preset="edge-triage">
+							<span class="preset-title">Low-Complexity Triage</span>
+							<span class="preset-meta">Fast local summary -> PREFER_ON_DEVICE</span>
+						</button>
+						<button
+							type="button"
+							class="btn btn-preset"
+							data-preset="cloud-architecture"
+						>
+							<span class="preset-title">Complex RCA + Key Scrub</span>
+							<span class="preset-meta">Redacts API Key/Email -> IN_CLOUD</span>
+						</button>
+						<button type="button" class="btn btn-preset" data-preset="airgapped-lock">
+							<span class="preset-title">Air-Gapped Fail-Closed</span>
+							<span class="preset-meta">Offline + No Nano -> Blocked (0 Egress)</span>
+						</button>
+					</div>
+
+					<div class="switch-grid" role="group" aria-label="Execution environment switches">
+						<label class="switch-card">
+							<input id="toggle-online" type="checkbox" checked />
+							<span class="switch-copy">
+								<strong>Network Online</strong>
+								<small>Cloud endpoint reachable</small>
+							</span>
+						</label>
+						<label class="switch-card">
+							<input id="toggle-nano" type="checkbox" checked />
+							<span class="switch-copy">
+								<strong>Gemini Nano Ready</strong>
+								<small>On-device inference available</small>
+							</span>
+						</label>
+						<label class="switch-card">
+							<input id="toggle-strict-privacy" type="checkbox" />
+							<span class="switch-copy">
+								<strong>Strict Privacy Lock</strong>
+								<small>Never touch cloud infrastructure</small>
+							</span>
+						</label>
+						<label class="switch-card">
+							<input id="toggle-allow-redacted-cloud" type="checkbox" />
+							<span class="switch-copy">
+								<strong>Cloud After Redaction</strong>
+								<small>Escalate scrubbed high-complexity tasks</small>
+							</span>
+						</label>
+					</div>
+
+					<div class="threshold-row">
+						<label class="slider-field" for="slider-complexity">
+							<div class="slider-label">
+								<span>Local Max Complexity Threshold</span>
+								<strong id="label-complexity">62 / 100</strong>
+							</div>
+							<input
+								id="slider-complexity"
+								type="range"
+								min="25"
+								max="95"
+								step="1"
+								value="62"
+							/>
+						</label>
+					</div>
+
+					<div class="composer-box">
+						<label for="prompt-input" class="input-label"
+							>2. Prompt Payload (Live PII Inspection Before Dispatch)</label
+						>
+						<textarea id="prompt-input" rows="5" spellcheck="false"></textarea>
+						<div class="action-bar">
+							<button id="btn-dispatch" type="button" class="btn btn-primary">
+								Dispatch Hybrid Inference
+							</button>
+							<button id="btn-warmup" type="button" class="btn btn-secondary">
+								Warm Up On-Device Model
+							</button>
+							<button id="btn-reset" type="button" class="btn btn-ghost">
+								Reset Metrics
+							</button>
+						</div>
+						<p id="warmup-status" class="status-note" aria-live="polite"></p>
+					</div>
+
+					<details class="firebase-config-drawer">
+						<summary>Firebase AI Logic Live SDK Configuration (Optional)</summary>
+						<div class="config-fields">
+							<label>
+								<span>Firebase API Key</span>
+								<input
+									id="cfg-api-key"
+									type="password"
+									placeholder="AIza..."
+									autocomplete="off"
+								/>
+							</label>
+							<label>
+								<span>Project ID</span>
+								<input
+									id="cfg-project-id"
+									type="text"
+									placeholder="my-hybrid-ai-app"
+									autocomplete="off"
+								/>
+							</label>
+							<label>
+								<span>App ID</span>
+								<input
+									id="cfg-app-id"
+									type="text"
+									placeholder="1:123456:web:abcdef"
+									autocomplete="off"
+								/>
+							</label>
+							<label>
+								<span>Cloud Fallback Model</span>
+								<input
+									id="cfg-cloud-model"
+									type="text"
+									value="gemini-2.5-flash-lite"
+								/>
+							</label>
+						</div>
+						<div class="config-actions">
+							<button id="btn-connect-firebase" type="button" class="btn btn-secondary">
+								Bind Live Firebase AI SDK
+							</button>
+							<button id="btn-disconnect-firebase" type="button" class="btn btn-ghost">
+								Use Offline Sandbox
+							</button>
+						</div>
+					</details>
+				</section>
+
+				<section class="panel telemetry-panel" aria-label="Telemetry & Routing Audit">
+					<div class="kpi-strip">
+						<article class="kpi-card">
+							<span class="kpi-label">On-Device Share</span>
+							<strong id="kpi-local-share" class="kpi-value">0%</strong>
+							<small id="kpi-call-counts" class="kpi-sub">0 local / 0 cloud</small>
+						</article>
+						<article class="kpi-card">
+							<span class="kpi-label">Cloud Spend Saved</span>
+							<strong id="kpi-usd-saved" class="kpi-value">$0.0000</strong>
+							<small id="kpi-usd-spent" class="kpi-sub">Spent: $0.0000</small>
+						</article>
+						<article class="kpi-card">
+							<span class="kpi-label">PII Shielded</span>
+							<strong id="kpi-pii-count" class="kpi-value">0</strong>
+							<small class="kpi-sub">Zero raw secrets leaked</small>
+						</article>
+						<article class="kpi-card">
+							<span class="kpi-label">Avg Latency</span>
+							<strong id="kpi-latency" class="kpi-value">0 ms</strong>
+							<small id="kpi-last-source" class="kpi-sub">Idle</small>
+						</article>
+					</div>
+
+					<div class="pipeline-box" aria-label="Live Routing Pipeline">
+						<div class="pipeline-head">
+							<h3>Live Routing Decision Pipeline</h3>
+							<span id="decision-mode-pill" class="pill pill-local">ONLY_ON_DEVICE</span>
+						</div>
+						<div class="pipeline-nodes">
+							<div id="node-pii" class="pipe-node">
+								<span class="pipe-kicker">Step 1</span>
+								<strong>PII &amp; Secret Gate</strong>
+								<span id="node-pii-detail" class="pipe-detail">Scanning...</span>
+							</div>
+							<div class="pipe-arrow" aria-hidden="true">-&gt;</div>
+							<div id="node-router" class="pipe-node">
+								<span class="pipe-kicker">Step 2</span>
+								<strong>Complexity &amp; Token Eval</strong>
+								<span id="node-router-detail" class="pipe-detail">Score: --</span>
+							</div>
+							<div class="pipe-arrow" aria-hidden="true">-&gt;</div>
+							<div id="node-target" class="pipe-node">
+								<span class="pipe-kicker">Step 3</span>
+								<strong>Firebase AI Dispatch</strong>
+								<span id="node-target-detail" class="pipe-detail">Target: --</span>
+							</div>
+						</div>
+						<p id="decision-reason" class="decision-reason"></p>
+					</div>
+
+					<div class="egress-grid">
+						<article class="diff-card">
+							<div class="diff-head">
+								<h3>Local Input (Stays in Browser RAM)</h3>
+								<span id="pii-badge-list" class="badge-list">Clean</span>
+							</div>
+							<pre id="raw-prompt-preview" class="code-box"></pre>
+						</article>
+						<article class="diff-card">
+							<div class="diff-head">
+								<h3>Actual Egress / Dispatch Payload</h3>
+								<span id="egress-lock-badge" class="pill pill-local">Verified Safe</span>
+							</div>
+							<pre id="outbound-prompt-preview" class="code-box"></pre>
+						</article>
+					</div>
+
+					<article class="response-card">
+						<div class="diff-head">
+							<h3>Copilot Response &amp; InferenceSource Receipt</h3>
+							<span id="response-meta-badge" class="pill pill-muted">Waiting</span>
+						</div>
+						<pre id="copilot-response" class="response-box"></pre>
+					</article>
+
+					<article class="ledger-card">
+						<div class="diff-head">
+							<h3>Auditable Decision Ledger</h3>
+							<span class="kpi-sub">Deterministic verification trail</span>
+						</div>
+						<div class="table-wrap">
+							<table class="ledger-table">
+								<thead>
+									<tr>
+										<th>SDK Mode</th>
+										<th>Actual Source</th>
+										<th>PII Scrubbed</th>
+										<th>Complexity</th>
+										<th>Latency</th>
+									</tr>
+								</thead>
+								<tbody id="ledger-tbody">
+									<tr>
+										<td colspan="5" class="muted-cell">
+											Run a preset or dispatch a prompt to inspect live telemetry.
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</article>
+				</section>
+			</main>
+		</div>
+
+		<script type="module" src="./src/main.ts"></script>
+	</body>
+</html>

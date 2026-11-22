@@ -1,0 +1,21 @@
+{
+	"name": "edgemesh-hybrid-ai",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "EdgeMesh Hybrid Copilot — Privacy-first On-Device + Firebase AI Logic Hybrid Router (#BuildHybridAI 2026)",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"build:docs": "vite build && node scripts/build-docs.mjs",
+		"type-check": "tsc --noEmit",
+		"test": "node --test tests/hybridRouter.test.mjs"
+	},
+	"dependencies": {
+		"firebase": "^13.4.0"
+	},
+	"devDependencies": {
+		"typescript": "^5.7.2",
+		"vite": "^6.2.0"
+	}
+}
